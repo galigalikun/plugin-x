@@ -20,6 +20,7 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
 import twitter4j.auth.AccessToken;
+import twitter4j.conf.ConfigurationBuilder;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
@@ -56,8 +57,12 @@ public class TwitterApp {
 	
 	public TwitterApp(Context context, String consumerKey, String secretKey) {
 		this.context	= context;
+
+        // ssl
+        ConfigurationBuilder configBuilder = new ConfigurationBuilder();
+        configBuilder.setUseSSL(true);
 		
-		mTwitter = new TwitterFactory().getInstance();
+		mTwitter = new TwitterFactory(configBuilder.build()).getInstance();
 		mSession		= new TwitterSession(context);
 		mProgressDlg	= new ProgressDialog(context);
 		mProgressDlg.setCancelable(false);
