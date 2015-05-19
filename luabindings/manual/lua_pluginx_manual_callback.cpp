@@ -775,10 +775,11 @@ int lua_pluginx_protocols_FacebookAgent_login(lua_State* tolua_S)
     argc = lua_gettop(tolua_S)-1;
     do{
         if (argc == 1) {
-            if (!toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err))
-                ok = false;
-            
-            if (!ok) { break; }
+#if COCOS2D_DEBUG >= 1
+            if (!toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err)) {
+                goto tolua_lerror;
+            }
+#endif
             
             LUA_FUNCTION handler = toluafix_ref_function(tolua_S, 2, 0);
             cobj->login([=](int ret, std::string& msg){
@@ -797,10 +798,11 @@ int lua_pluginx_protocols_FacebookAgent_login(lua_State* tolua_S)
             ok &= luaval_to_std_string(tolua_S, 2,&arg0, "plugin.FacebookAgent:login");
             
             if (!ok) { break; }
-            if (!toluafix_isfunction(tolua_S,3,"LUA_FUNCTION",0,&tolua_err))
-                ok = false;
-            
-            if (!ok) { break; }
+#if COCOS2D_DEBUG >= 1
+            if (!toluafix_isfunction(tolua_S,3,"LUA_FUNCTION",0,&tolua_err)) {
+                goto tolua_lerror;
+            }
+#endif
             
             LUA_FUNCTION handler = toluafix_ref_function(tolua_S, 3, 0);
             cobj->login(arg0, [=](int ret, std::string& msg){
